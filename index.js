@@ -7,6 +7,42 @@
 // должен отображать все загруженные ранее данные (новые данные должны 
 // подгружаться из учетом уже загруженных ранее).
 
+//сервисный ключ
+//24dece8124dece8124dece81ef27c8a92c224de24dece814181a7b4f44931cbdba359da
+
+//https://vk.com/wall-73247559?own=1
 
 
+//https://oauth.vk.com/authorize?client_id=51800017&display=page&redirect_url=https://valeryvigovskaya.github.io/19-20_tasks/callback&scope=wall&response_type=token&v=5.199&state=123456
+
+// function request(url, options) {
+//     // принимает два аргумента: урл и объект опций, как и `fetch`
+//     return fetch(url, options).then(checkResponse)
+//   }
+
+// const config = {
+//   baseUrl: 'https://api.vk.com/method/wall.get?access_token=24dece8124dece8124dece81ef27c8a92c224de24dece814181a7b4f44931cbdba359da&owner_id=-73247559&count=10&offset=0&v=5.126',
+//   headers: {
+//     // authorization: '5677928b-be8e-49ee-ae63-e0ec29ade066',
+//     'Content-Type': 'application/json'
+//   }
+// }
+
+
+// const getUserInfo = () => {
+//   return request(`${config.baseUrl}`, {
+//     headers: config.headers
+//   })
+// }
+
+// //промисом получили данные с сервера
+// Promise.all([getUserInfo()])
+//   .then((res) => {
+//     console.log(res)
+//   })
+//   .catch((err) => {
+//     console.log(err); // выводим ошибку в консоль, если запрос неуспешный
+//   });
+
+window.location.href = 'auth.html';
 
