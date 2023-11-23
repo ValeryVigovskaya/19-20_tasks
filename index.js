@@ -13,8 +13,9 @@
 //https://vk.com/wall-73247559?own=1
 
 
-//https://oauth.vk.com/authorize?client_id=51800017&display=page&redirect_url=https://valeryvigovskaya.github.io/19-20_tasks/callback&scope=wall&response_type=token&v=5.199&state=123456
-
+//https://oauth.vk.com/authorize?client_id=51800017&display=page&redirect_url=http://127.0.0.1:5500/index.html/&scope=wall&response_type=token&v=5.199&state=123456
+// window.location.href = 'auth.html';
+// window.open("https://oauth.vk.com/authorize?client_id=51800017&display=page&redirect_uri=http://127.0.0.1:5500/index.html&scope=wall&response_type=token&v=5.199&state=123456");
 // function request(url, options) {
 //     // принимает два аргумента: урл и объект опций, как и `fetch`
 //     return fetch(url, options).then(checkResponse)
@@ -44,5 +45,46 @@
 //     console.log(err); // выводим ошибку в консоль, если запрос неуспешный
 //   });
 
-window.location.href = 'auth.html';
 
+
+export const fetchWithRefresh = async (
+    options
+  ) => {
+    try {
+      const res = await fetch("https://oauth.vk.com/authorize?client_id=51800017&display=page&redirect_uri=https://valeryvigovskaya.github.io/19-20_tasks/index.html&scope=wall&response_type=token&v=5.199&state=123456", options);
+      return await checkResponse(res);
+    } catch (err) {
+      if (err.message === "jwt expired") {
+        const refreshData = await refreshToken(); //обновляем токен
+        if (!refreshData.success) {
+          return Promise.reject(refreshData);
+        }
+        localStorage.setItem("refreshToken", refreshData.refreshToken);
+        localStorage.setItem("accessToken", refreshData.accessToken);
+        options.headers.authorization = refreshData.accessToken;
+        const res = await fetch("https://oauth.vk.com/authorize?client_id=51800017&display=page&redirect_uri=https://valeryvigovskaya.github.io/19-20_tasks/index.html&scope=wall&response_type=token&v=5.199&state=123456", options); //повторяем запрос
+        return await checkResponse(res);
+      } else {
+        return Promise.reject(err);
+      }
+    }
+  };
+
+  const getUser = () => {
+    return fetchWithRefresh({
+      method: "GET",
+      headers: {
+        authorization: localStorage.getItem("accessToken"),
+        "Content-Type": "application/json;charset=utf-8",
+      }
+    });
+  };
+
+  const getUserFetch = () => {
+      getUser()
+      .then((res) => {
+        res.user;
+      });
+  };
+
+  getUserFetch()
