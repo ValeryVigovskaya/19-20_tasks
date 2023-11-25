@@ -4,8 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Виджет</title>
+    <link rel="stylesheet" href="./style.css">
   </head>
-  <body>
+  <body class="body">
+    <section class="elements">
+        <div class="title-container">
+            <h1 class="title">Реализация виджета</h1>
+        </div>
+      <ul class="elements__list"></ul>
+    </section>
+
+    <template id="element-template">
+      <li class="element">
+        <img src="" alt="" class="element__img">
+        <p class="element__item"></p>
+        <div class="element__like-container">
+            <div class="element__like"></div>
+            <p class="element__amount-likes"></p>
+        </div>
+      </li>
+    </template>
     <script type="text/javascript" src="./script.js"></script>
   </body>
 </html>
